@@ -50,7 +50,7 @@ useEffect(()=>{
                <th>Coin</th>
                <th>Price</th>
                <th>Change</th>
-               <th>Market-Cap</th>
+               
                </tr>
            </thead>
            <tbody>
@@ -70,9 +70,7 @@ useEffect(()=>{
                                <td className={`change-${coin.change.startsWith('-')?'neg':'pos'}`}>
                                    {coin.change} %
                                </td>
-                               <td>
-                               {currency?currency.sign:"$"} {coin.marketCap}
-                               </td>
+                            
                             
                        </tr>
                        </Link>
