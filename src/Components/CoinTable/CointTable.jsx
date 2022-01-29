@@ -44,7 +44,7 @@ useEffect(()=>{
   return (
       <div className='coin-table'>
 
-       {!loading && (       <table>
+       {!loading ?(       <table>
            <thead>
                <tr>
                <th>Coin</th>
@@ -78,7 +78,11 @@ useEffect(()=>{
                }
            </tbody>
        </table>
-)}      </div>
+) : (
+    <div className='loading'>Loading....</div>
+)
+
+}      </div>
   )
 };
 

@@ -44,3 +44,8 @@ td{
 .body-row :hover{
     cursor: pointer;
 }
+.loading{
+    text-align:  center;
+    font-size: 2rem;
+    color: ivory;
+}
