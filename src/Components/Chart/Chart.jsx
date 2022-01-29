@@ -18,7 +18,7 @@ const ChartComponent = ({coinHistory}) => {
         datasets:[
             {
             data: coinHistory.map(coin=> coin.price),
-            label:`price in ${currency.name}`,
+            label:currency ? `price in ${currency.name}` : "price in USD",
             backgroundColor:'gold',
             borderColor:'gold',
             fill:false
