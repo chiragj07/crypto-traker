@@ -1,0 +1,46 @@
+.coin-table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+table{
+    width: 90%;
+    border: 1px solid grey;
+    
+}
+thead{
+    width: 100%;
+    background-color: goldenrod;
+}
+tr{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:1rem;
+    padding: 1rem;
+}
+.coin-name-image{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+}
+.change-neg{
+    color: rgb(243, 4, 4);
+}
+.change-pos{
+    color: rgb(14, 203, 129);
+}
+.body-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:1rem,
+}
+td{
+    color: ivory;
+    text-align: center;
+    
+}
+.body-row :hover{
+    cursor: pointer;
+}

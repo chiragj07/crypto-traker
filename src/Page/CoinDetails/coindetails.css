@@ -1,0 +1,63 @@
+.coin-details-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color:ivory;
+    gap: 1rem;
+}
+.coin-details-container img{
+    width: 6rem;
+    height: 6rem;
+}
+.select-time{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 3rem;
+    gap:2rem
+}
+button{
+    background-color: goldenrod;
+    border: goldenrod ;
+    padding: 0.5rem;
+    color: rgb(14, 4, 2);
+}
+select{
+    margin: 1rem;
+    padding: 0.3rem;
+}
+.chart-coin {
+    width: 95%;
+}
+.loading{
+    text-align:  center;
+    font-size: 2rem;
+    color: ivory;
+}
+
+@media screen and (min-width:720px) {
+    .chart-coin{
+        width: 80%;
+    }
+    .coin-details-container img{
+        width: 8rem;
+        height: 8rem;
+    }
+
+    
+}
+@media screen and (min-width:480px) {
+    .select-time{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    
+}
+@media screen and (min-width:720px) {
+    .select-time{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    
+}
