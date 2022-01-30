@@ -2,7 +2,7 @@
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
     url("./bg1.jpg");
   background-repeat: no-repeat;
-  height: 75vh;
+  height: 45vh;
   background-position: center;
   background-size: cover;
   position: relative;
@@ -19,4 +19,9 @@
 input {
   width: 10rem;
   padding: 0.3rem 0.7rem;
+}
+@media screen and (min-width: 720px) {
+  .banner-container {
+    height: 75vh;
+  }
 }

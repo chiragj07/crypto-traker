@@ -88,6 +88,8 @@ ul {
   grid-template-columns: 1fr 1fr;
   justify-content: space-evenly;
   list-style: none;
+  margin: 1rem;
+  gap: 1rem;
 }
 
 li {
@@ -112,7 +114,5 @@ ul :hover {
   }
   ul {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin: 1rem;
-    gap: 1rem;
   }
 }
