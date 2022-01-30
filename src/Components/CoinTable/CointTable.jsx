@@ -1,89 +1,120 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import './cointable.css'
-const CointTable = () => {
-const [loading, setLoading] = useState(true);
-const currency = useSelector(state=>state.currency); 
-const [coins, setCoins] = useState([])
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import "./cointable.css";
+const CointTable = ({ coins }) => {
+  const [reqCoin, setReqCoin] = useState([]);
+  const currency = useSelector((state) => state.currency);
+  const totalPages = Math.ceil(coins.length / 5);
+  const [sortBy, setSortBy] = useState("");
+  let pageArray = [];
+  for (var i = 0; i < totalPages; i++) {
+    pageArray[i] = i + 1;
+  }
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    const lim = 5;
+    setReqCoin(coins.slice((page - 1) * lim, (page - 1) * lim + lim));
+  }, [page, coins, sortBy]);
 
-
-useEffect(()=>{
-   const fetchCoins = async ()=>{
-       setLoading(true)
-    var options = {
-        method: 'GET',
-        url: 'https://coinranking1.p.rapidapi.com/coins',
-        params: {
-          referenceCurrencyUuid: currency?`${currency.uuid}`:"yhjMzLPhuIDl",
-          timePeriod: '24h',
-          tiers: '1',
-          orderBy: 'marketCap',
-          orderDirection: 'desc',
-          limit: '50',
-          offset: '0'
-        },
-        headers: {
-          'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
-          'x-rapidapi-key': '8f3db16d2amsh09a51c7d890956fp1abbb2jsndea6444c567e'
-        }
-      };
-      const {data:{data:{coins}}} = await axios.request(options);
-      console.log(coins);
-      setCoins(coins);
-      setLoading(false)
-      
-   }  
-
-   fetchCoins()
-
-},[currency])
-
-
+  const handleClickInc = (attr) => {
+    const compare = (a, b) => {
+      if (parseFloat(a[attr]) < parseFloat(b[attr])) return -1;
+      if (parseFloat(a[attr]) > parseFloat(b[attr])) return 1;
+      return 0;
+    };
+    coins.sort(compare);
+    setSortBy(attr);
+  };
+  const handleClickDec = (attr) => {
+    const compare = (a, b) => {
+      if (parseFloat(a[attr]) > parseFloat(b[attr])) return -1;
+      if (parseFloat(a[attr]) < parseFloat(b[attr])) return 1;
+      return 0;
+    };
+    coins.sort(compare);
+    setSortBy("dec" + attr);
+  };
   return (
-      <div className='coin-table'>
-
-       {!loading ?(       <table>
-           <thead>
-               <tr>
-               <th>Coin</th>
-               <th>Price</th>
-               <th>Change</th>
-               
-               </tr>
-           </thead>
-           <tbody>
-               {
-                   coins.map((coin)=> (
-                       <Link key={coin.uuid} style={{textDecoration: "none"}} to = {`/coindetails/${coin.uuid}`}>
-                       <tr  className='body-row'>
-                           <td>
-                                <div className='coin-name-image'>
-                                    <img src={coin.iconUrl} alt={coin.name} height='50px' width='50px' />
-                                    <span>{coin.name}</span>
-                                </div>
-                               </td> 
-                               <td>
-                                  {currency?currency.sign:"$"} {parseFloat(coin.price).toFixed(4)}
-                               </td>
-                               <td className={`change-${coin.change.startsWith('-')?'neg':'pos'}`}>
-                                   {coin.change} %
-                               </td>
-                            
-                            
-                       </tr>
-                       </Link>
-                   ))
-               }
-           </tbody>
-       </table>
-) : (
-    <div className='loading'>Loading....</div>
-)
-
-}      </div>
-  )
+    <div className="coin-table">
+      <div className="sort-container">
+        <span className="plain-item">Sort : </span>
+        <ul>
+          <li onClick={() => handleClickDec("price")}>Highest Price</li>
+          <li onClick={() => handleClickInc("price")}>Lowest Price</li>
+          <li onClick={() => handleClickDec("change")}>Profit</li>
+          <li onClick={() => handleClickInc("change")}>Loss</li>
+        </ul>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Coin</th>
+            <th>Price</th>
+            <th>Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reqCoin.map((coin) => (
+            <Link
+              key={coin.uuid}
+              style={{ textDecoration: "none" }}
+              to={`/coindetails/${coin.uuid}`}
+            >
+              <tr className="body-row">
+                <td>
+                  <div className="coin-name-image">
+                    <img src={coin.iconUrl} alt={coin.name} />
+                    <span>{coin.name}</span>
+                  </div>
+                </td>
+                <td>
+                  {currency ? currency.sign : "$"}{" "}
+                  {parseFloat(coin.price).toFixed(4)}
+                </td>
+                <td
+                  className={`change-${
+                    coin.change.startsWith("-") ? "neg" : "pos"
+                  }`}
+                >
+                  {coin.change} %
+                </td>
+              </tr>
+            </Link>
+          ))}
+        </tbody>
+      </table>
+      <div className="table-buttons">
+        {page > 1 ? (
+          <button onClick={() => setPage((page) => page - 1)}> Previos</button>
+        ) : (
+          <button className="deactivated-button">Previous</button>
+        )}
+        <span>
+          <select
+            name="page"
+            id="page"
+            value={page}
+            onChange={(e) => {
+              console.log(typeof e.target.value);
+              setPage((page) => parseInt(e.target.value));
+            }}
+          >
+            {pageArray.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+        </span>
+        {page < totalPages ? (
+          <button onClick={() => setPage((page) => page + 1)}>Next</button>
+        ) : (
+          <button className="deactivated-button">Next</button>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default CointTable;

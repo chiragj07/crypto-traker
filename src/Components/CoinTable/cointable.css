@@ -1,51 +1,118 @@
-.coin-table{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+.coin-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-table{
-    width: 90%;
-    border: 1px solid grey;
-    
+table {
+  width: 90%;
+  border: 1px solid grey;
 }
-thead{
-    width: 100%;
-    background-color: goldenrod;
+thead {
+  width: 100%;
+  background-color: goldenrod;
 }
-tr{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap:1rem;
-    padding: 1rem;
+tr {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
 }
-.coin-name-image{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+.coin-name-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
-.change-neg{
-    color: rgb(243, 4, 4);
+.change-neg {
+  color: rgb(243, 4, 4);
 }
-.change-pos{
-    color: rgb(14, 203, 129);
+.change-pos {
+  color: rgb(14, 203, 129);
 }
-.body-row{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap:1rem,
+.body-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
 }
-td{
-    color: ivory;
-    text-align: center;
-    
+td {
+  color: ivory;
+  text-align: center;
 }
-.body-row :hover{
-    cursor: pointer;
+.body-row :hover {
+  cursor: pointer;
 }
-.loading{
-    text-align:  center;
-    font-size: 2rem;
-    color: ivory;
+.loading {
+  text-align: center;
+  font-size: 2rem;
+  color: ivory;
+}
+
+img {
+  width: 4rem;
+  height: 4rem;
+}
+.table-buttons {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2rem;
+}
+.table-buttons select {
+  border: 1px goldenrod solid;
+  background-color: goldenrod;
+  padding: 0.3rem 0.8rem;
+  color: black;
+}
+.table-buttons button {
+  width: 4rem;
+}
+.deactivated-button {
+  background-color: gray;
+  border: 0.2px goldenrod solid;
+}
+.table-buttons :hover {
+  cursor: pointer;
+}
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1rem;
+}
+ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+li {
+  background-color: goldenrod;
+  color: black;
+  border: goldenrod 1px solid;
+  padding: 0.3rem 0.7rem;
+}
+ul :hover {
+  cursor: pointer;
+}
+.plain-item {
+  background-color: #101818;
+  color: goldenrod;
+  border: 1px goldenrod solid;
+  padding: 0.3rem 0.7rem;
+}
+
+@media screen and (min-width: 720px) {
+  .sort-container {
+    flex-direction: row;
+  }
+  ul {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 1rem;
+    gap: 1rem;
+  }
 }
