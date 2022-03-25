@@ -14,7 +14,7 @@ const ChartComponent = ({ coinHistory }) => {
 
   const data = {
     labels: coinHistory.map((hist) => {
-      return new Date(hist.timestamp).toLocaleDateString();
+      return new Date(hist.timestamp*1000).toLocaleDateString();
     }),
     datasets: [
       {
