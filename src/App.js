@@ -8,6 +8,7 @@ import CoinDetails from "./Page/CoinDetails/CoinDetails";
 function App() {
   const [loading, setLoading] = useState(true);
   const [allCurr, setAllCurr] = useState([]);
+  const [errors, setErrors] = useState(false);
 
   useEffect(() => {
     const fetchAllcurr = () => {
@@ -28,13 +29,15 @@ function App() {
           setAllCurr(arr);
           setLoading(false);
         })
-        .catch((err) => console.log("somethng went wrong" + err.message));
+        .catch((err) => {
+          setLoading(false)
+          setErrors(true)});
     };
     fetchAllcurr();
   }, []);
   return (
     <div className="App">
-      {!loading && <Navbar allCurr={allCurr} />}
+      {!errors && !loading && <Navbar allCurr={allCurr} />}
       <Routes>
         <Route path={"/"} exact element={<Home />} />
         <Route path={"coindetails/:coinId"} exact element={<CoinDetails />} />

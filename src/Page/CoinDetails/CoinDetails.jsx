@@ -10,10 +10,12 @@ const CoinDetails = () => {
    const [timePeriod, setTimePeriod]= useState('24h')
    const [loading, setLoading] = useState(true);
    const currency = useSelector(state=>state.currency);
+   const [error, setError] = useState(false)
    const [coinHistory, setCoinHistory] = useState([]);
    useEffect(()=>{
        const fetchDetails= async() =>{
            setLoading(true)
+           try{
            var options = {
             method: 'GET',
             url: `https://coinranking1.p.rapidapi.com/coin/${coinId}`,
@@ -36,8 +38,16 @@ const CoinDetails = () => {
         }
       };
       const {data:{data:{history}}} = await axios.request(options1);
+      console.log(history)
       setCoinHistory(history);
       setLoading(false)
+      
+    }
+    catch(err){
+      console.log(err)
+      setError(true)
+      setLoading(false)
+    }
 
     }
     fetchDetails()
@@ -50,8 +60,11 @@ const CoinDetails = () => {
 
   return (
       <>
-      
-        {!loading ? (
+        {
+          loading ? (<div className='error-container'> <div className="spinner"></div></div>) :
+        
+         !error && coinHistory.length > 0 ? (
+          <>
                 <div className='coin-details-container'>
              <h2>
                  {details.name}
@@ -61,28 +74,33 @@ const CoinDetails = () => {
                 <div className="sub-detail">
                 <h4> Current Price : </h4> <span>{currency?currency.sign:"$"} {details.price}</span>
                 </div >
-                <div className={`change-${details.change.startsWith('-')?'neg':'pos'}`} >
-                        {details.change} %
+                <div className={`change-${details?.change?.startsWith('-')?'neg':'pos'}`} >
+                        {details.change && `${details.change} %`}
                 </div> 
+                <div>
+
+                </div>
                         <div className='chart-coin'>                         
                          <ChartComponent coinHistory={coinHistory} />  
                          </div>
  
                          </div>
-                         ) : (<div className='loading'>Loading.......</div>)
+                         <div className='select-time' onClick={handleClick}>
+                         <button value="3h" >3 Hours</button>
+                         <button value="24h"   >24 Hours</button>
+                         <button value="7d" >7 days</button>
+                         <button value="30d" >30 days</button>
+                         <button value="3m" >3 months</button>
+                         <button value="1y" >1 year</button>
+                         <button value="3y" >3 years</button>
+                         <button value="5y" >5 years</button>
+                     
+                     </div> 
+                     </> 
+                     
+                         ) : (<div className='error-container'>Sorry, No data Found</div>)
    }   
-   <div className='select-time'>
-    <button value="3h" onClick={handleClick}>3 Hours</button>
-    <button value="24h" onClick={handleClick}  >24 Hours</button>
-    <button value="7d" onClick={handleClick}>7 days</button>
-    <button value="30d" onClick={handleClick}>30 days</button>
-    <button value="3m" onClick={handleClick}>3 months</button>
-    <button value="1y" onClick={handleClick}>1 year</button>
-    <button value="3y" onClick={handleClick}>3 years</button>
-    <button value="5y" onClick={handleClick}>5 years</button>
-
-</div>  
-        
+           
       </>
   ) 
 };

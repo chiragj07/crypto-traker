@@ -96,7 +96,6 @@ const CointTable = ({ coins }) => {
             id="page"
             value={page}
             onChange={(e) => {
-              console.log(typeof e.target.value);
               setPage((page) => parseInt(e.target.value));
             }}
           >

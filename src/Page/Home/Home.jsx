@@ -35,7 +35,6 @@ const Home = () => {
           data: { coins },
         },
       } = await axios.request(options);
-      console.log(coins);
       setCoins(coins);
       setLoading(false);
     };
@@ -44,7 +43,6 @@ const Home = () => {
   }, [currency]);
 
   useEffect(() => {
-    console.log(search);
     setFilteredCoins(
       coins.filter(
         (coin) =>

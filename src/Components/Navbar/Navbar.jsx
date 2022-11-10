@@ -5,13 +5,10 @@ import { changeCurrency } from "../../redux/action";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 const Navbar = ({ allCurr }) => {
-  console.log(allCurr);
   const state = useSelector((state) => state);
-  console.log(state);
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const filtCurrency = allCurr.filter((curr) => curr.uuid === e.target.value);
-    console.log(filtCurrency);
 
     dispatch(changeCurrency(filtCurrency[0]));
   };
