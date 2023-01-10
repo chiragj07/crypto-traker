@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { changeCurrency } from "../../redux/action";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 const Navbar = ({ allCurr }) => {
-  const state = useSelector((state) => state);
+  // const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const filtCurrency = allCurr.filter((curr) => curr.uuid === e.target.value);
