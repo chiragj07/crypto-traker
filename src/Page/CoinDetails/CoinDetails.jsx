@@ -83,6 +83,9 @@ const CoinDetails = () => {
                         <div className='chart-coin'>                         
                          <ChartComponent coinHistory={coinHistory} />  
                          </div>
+                         <div style={{color:"goldenrod"}}>
+                          Last {timePeriod} 
+                         </div>
  
                          </div>
                          <div className='select-time' onClick={handleClick}>
